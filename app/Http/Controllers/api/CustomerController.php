@@ -28,7 +28,7 @@ class CustomerController extends Controller
             'salary'=>'required',
             'status'=>'required'
         ]);
-        // give an error in first_name
+
                Customer::create([
              'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
