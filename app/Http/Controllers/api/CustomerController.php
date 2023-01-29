@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
@@ -14,21 +15,10 @@ class CustomerController extends Controller
     {
         $customers = CustomerResource::collection( Customer::all());
         return $customers ;
-        // return Customer::select('id','first_name', 'last_name','email','user_name','salary','status')->get();
     }
 
-
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-       $request->validate([
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required|unique:customers',
-            'user_name'=>'required|unique:customers',
-            'salary'=>'required',
-            'status'=>'required'
-        ]);
-
                Customer::create([
              'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
@@ -43,7 +33,6 @@ class CustomerController extends Controller
         ]);
     }
 
-
     public function show(Customer $customer)
     {
 
@@ -52,26 +41,14 @@ class CustomerController extends Controller
             'customer' => $customer,
         ]);
     }
-
-
-
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-             $request->validate([
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required|unique:customers',
-            'user_name'=>'required|unique:customers',
-            'salary'=>'required',
-            'status'=>'required'
-        ]);
         $customer->update($request->all());
         // $customer->fill($request->post())->update();
         return response()->json([
             'message' => 'Customer Data Updated',
         ]);
     }
-
 
     public function destroy(Customer $customer)
     {

@@ -22,12 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-// Route::get('login', function (){
-// return response()->json(['error' => 'unauthenticated']);
-// });
-
-
-
 Route::match(['get','post'],'login', [UserController::class,'login'])->name('login');
 Route::post('register', [UserController::class,'register']);
 
@@ -36,5 +30,4 @@ Route::resource('customer', CustomerController::class);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user', [UserController::class,'details']);
-
 })->middleware('MyMiddleware', 'auth:api');

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
+use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Jobs\WelcomeMailJob;
 use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
         $this->validate($request, [
             'name' => 'required|min:3',
@@ -22,17 +25,14 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-
-        Mail::to("ahmed.mostafa.faisl@gmail.com")->send(new WelcomeMail());
-
+        $mail = $request->email;
+        WelcomeMailJob::dispatch($mail);
+        // Mail::to($request->email)->send(new WelcomeMail());
         $token = $user->createToken('Pelcro')->accessToken;
-
         return response()->json(['token' => $token], 200);
-
     }
 
-
-    public function login(Request $request)
+    public function login(UserRequest $request)
     {
         $credentials = [
             'email' => $request->email,
@@ -47,11 +47,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Returns Authenticated User Details
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function details()
     {
         return response()->json(['user' => auth()->user()], 200);

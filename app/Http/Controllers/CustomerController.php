@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -21,20 +22,10 @@ class CustomerController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $request->validate([
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required|unique:customers',
-            'user_name'=>'required|unique:customers',
-            'salary'=>'required',
-            'status'=>'required'
-        ]);
         $customer = Customer::create($request->all());
-        // return response()->json([
-        //     'message'=>'New Customer Added',
-        // ]);
+
         return redirect()->route('customers.index');
     }
 
@@ -52,9 +43,9 @@ class CustomerController extends Controller
     }
 
 
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-         $customer->update($request->all());
+        //  $customer->update($request->all());
         return redirect()->route('customers.index');
     }
 
