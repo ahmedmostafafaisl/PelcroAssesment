@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
 {
@@ -37,7 +37,8 @@ class CustomerController extends Controller
             'salary'=>$request->salary,
             'status'=>$request->status
         ]);
-        return response()->json([
+
+      return response()->json([
             'message' => 'New Customer Added',
         ]);
     }
