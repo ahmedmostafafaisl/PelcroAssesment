@@ -26,8 +26,7 @@ Route::match(['get','post'],'login', [UserController::class,'login'])->name('log
 Route::post('register', [UserController::class,'register']);
 
 
-Route::resource('customer', CustomerController::class);
-
 Route::middleware('auth:api')->group(function () {
     Route::get('user', [UserController::class,'details']);
+    Route::resource('customer', CustomerController::class);
 })->middleware('MyMiddleware', 'auth:api');
