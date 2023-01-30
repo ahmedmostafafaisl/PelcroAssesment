@@ -5,15 +5,10 @@
 
 @section('content')
     <header class="header">
-        <h1 id="title" class="text-center">Customers</h1>
+        <h1 id="title" class="text-center">All Customers</h1>
     </header>
 
-
-
     <div class="container">
-
-
-
         <table class="table table-striped">
             <thead>
                 <th>#</th>
@@ -37,17 +32,17 @@
                         <td>{{ $customer->user_name }}</td>
                         <td>{{ $customer->salary }}</td>
                         <td>{{ $customer->status }}</td>
-                        <td><a class="btn btn-outline-info my-2 my-sm-0"
-                                href="{{ route('customers.show', $customer->id) }}">Show Details</a>
+                        <td><a class="btn btn-primary my-2 my-sm-0" href="{{ route('customers.show', $customer->id) }}">Show
+                                Details</a>
                         </td>
-                        <td><a class="btn btn-outline-warning my-2 my-sm-0"
-                                href="{{ route('customers.edit', $customer->id) }}">Edit Data</a>
+                        <td><a class="btn btn-warning my-2 my-sm-0" href="{{ route('customers.edit', $customer->id) }}">Edit
+                                Data</a>
                         </td>
                         <td>
                             <form action="{{ route('customers.destroy', $customer->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <input type="submit" class="btn btn-outline-danger my-2 my-sm-0" value="Delete" />
+                                <input type="submit" class="btn btn-danger my-2 my-sm-0" value="Delete" />
                             </form>
                         </td>
                     </tr>

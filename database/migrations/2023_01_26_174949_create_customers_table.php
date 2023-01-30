@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
@@ -21,15 +17,11 @@ return new class extends Migration
             $table->string('user_name', 100);
             $table->float('salary');
             $table->tinyInteger('status');
+            $table->index(['email', 'user_name']);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('customers');

@@ -13,15 +13,12 @@ use App\Mail\WelcomeMail;
 class WelcomeMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     private $mail;
 
     public function __construct($mail)
     {
         $this->mail = $mail;
     }
-
-
     public function handle()
     {
         Mail::to($this->mail)->send(new WelcomeMail());

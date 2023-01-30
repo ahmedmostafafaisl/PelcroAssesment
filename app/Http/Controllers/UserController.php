@@ -27,7 +27,6 @@ class UserController extends Controller
         ]);
         $mail = $request->email;
         WelcomeMailJob::dispatch($mail);
-        // Mail::to($request->email)->send(new WelcomeMail());
         $token = $user->createToken('Pelcro')->accessToken;
         return response()->json(['token' => $token], 200);
     }

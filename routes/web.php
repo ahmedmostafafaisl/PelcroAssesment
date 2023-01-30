@@ -1,9 +1,10 @@
 <?php
 
 use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
-use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,10 @@ Route::get('/', function () {
 });
 
 
-Route::get('/send', function () {
-    Mail::to('ahmed.mostafa.faisl@gmail.com')->send(new WelcomeMail());
-    return response("Sending");
-});
+
+Route::resource('customers', CustomerController::class)->middleware('auth');
 
 
+Auth::routes();
 
-Route::resource('customers', CustomerController::class);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
