@@ -13,12 +13,6 @@ class UserController extends Controller
 {
     public function register(UserRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
 
         $user = User::create([
             'name' => $request->name,
@@ -26,6 +20,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ]);
         $mail = $request->email;
+        // Mail::to("ahmed.mostafa.faisl@gmail.com")->send(new WelcomeMail());
         WelcomeMailJob::dispatch($mail);
         $token = $user->createToken('Pelcro')->accessToken;
         return response()->json(['token' => $token], 200);

@@ -21,6 +21,6 @@ class WelcomeMailJob implements ShouldQueue
     }
     public function handle()
     {
-        Mail::to($this->mail)->send(new WelcomeMail());
+        Mail::to("ahmed.mostafa.faisl@gmail.com")->send(new WelcomeMail());
     }
 }
